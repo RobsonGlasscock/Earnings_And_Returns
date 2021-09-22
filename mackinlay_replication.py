@@ -1338,13 +1338,18 @@ cat2 = df_perc_vars[df_perc_vars["bn"] == 1]
 len(cat1)
 len(cat2)
 
+
 """ TODO: Finding """
+gn_bn_nn(df_perc_vars, "cum_ret20", "d_eps_seas_perc", 0.33)
 ttest_ind(cat1["cum_ret20"], cat2["cum_ret20"])
 ttest_ind(cat1["cum_ret20"], cat2["cum_ret20"], equal_var=False)
 
-# Cumulative 20 day returns average for good news firms is 2.82%.
-# Cumulative 20 day returns average for bad news firms is -2.42%.
-# These differences are statistically significant at conventional levels.
+# Cumulative 20 day returns average for good news firms is 2.5%.
+# Cumulative 20 day returns average for bad news firms is -2.3%.
+# These differences are statistically significant at conventional levels
+# for both equal and unequal variances (e.g., t > 2)
+# minimums and maximums of the good news and bad news groups, respectively,
+# are -28% and 32% and -34% and 23%.
 
 # Create graphs of gn, bn, and nn means for each day and then plot. Remove outliers
 # for better visualization.
@@ -1378,6 +1383,12 @@ print(results.summary())
 df_perc_vars["ticker"].unique()
 
 """TODO: Finding """
+# R^2 close to 2%. The parameter estimate is 0.027 with a test
+# statistic great than 2. Results are robust to exclusion of an intercept.
+# A single percentage change in sesonally differenced earnings per share
+# is estimated to chagne returns by 2.7%. The regressor is statistically
+# significant at conventional levels, but the model explains very little of
+# the variaion in returns.
 
 X = df_perc_vars["d_eps_seas"]
 X_model = sm.add_constant(X)
@@ -1394,7 +1405,8 @@ results.params
 print(results.summary())
 
 """TODO: Finding """
-
+# Results are NOT robust to a model with levels rather than
+# percentage changes in seasonal EPS.
 
 """TODO: Finding"""
 
@@ -1411,8 +1423,8 @@ print(results.summary())
 
 
 """ TODO: Finding """
+# Results are robust to clustering standard errors at the firm level.
 # Save graphs
-
 
 plt.scatter(df_perc_vars["d_eps_seas_perc"], df_perc_vars["cum_ret20"])
 plt.xticks(rotation="vertical")
@@ -1485,7 +1497,7 @@ ttest_ind(cat1["abnor_ret20"], cat2["abnor_ret20"])
 ttest_ind(cat1["abnor_ret20"], cat2["abnor_ret20"], equal_var=False)
 
 """TODO: Finding"""
-
+# test statistics are clost to 1.6 now.
 
 # 20 day window
 gn_bn_nn(df_perc_vars, "abnor_ret20", "d_eps_seas_perc", 0.33)
@@ -1503,7 +1515,6 @@ plt.savefig("Cumulative_Abnormal_Returns_20_EPS.pdf", bbox_inches="tight")
 """TODO: Finding """
 # The 20 day abnormal return and regular return graphs look very similar.
 
-"""TODO: Finding """
 Y = df_perc_vars["abnor_ret20"]
 X = df_perc_vars["d_eps_seas_perc"]
 X_model = sm.add_constant(X)
@@ -1548,6 +1559,9 @@ results = model.fit(
 results.params
 print(results.summary())
 
+# Overall, results are similar to the 20 day cumulative return windows
+# albeit with less precisely estimated parameters resulting in
+# smaller test statistics and larger p-values.
 
 # Now for the 5 day window
 gn_bn_nn(df_perc_vars, "abnor_ret5", "d_eps_seas_perc", 0.33)
@@ -1568,8 +1582,7 @@ plt.savefig("Cumulative_Abnormal_Returns_5_EPS.pdf", bbox_inches="tight")
 ttest_ind(cat1["abnor_ret5"], cat2["abnor_ret5"])
 ttest_ind(cat1["abnor_ret5"], cat2["abnor_ret5"], equal_var=False)
 """TODO: Finding"""
-# The abnormal return means at 5 days are statistically significant
-# at conventional levels.
+# The abnormal return means at 5 days have test statistics around 2.5
 
 
 # 5 day window
