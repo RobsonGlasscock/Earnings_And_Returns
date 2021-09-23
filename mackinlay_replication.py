@@ -1386,7 +1386,7 @@ df_perc_vars["ticker"].unique()
 # R^2 close to 2%. The parameter estimate is 0.027 with a test
 # statistic great than 2. Results are robust to exclusion of an intercept.
 # A single percentage change in sesonally differenced earnings per share
-# is estimated to chagne returns by 2.7%. The regressor is statistically
+# is estimated to change returns by 0.027. The regressor is statistically
 # significant at conventional levels, but the model explains very little of
 # the variaion in returns.
 
